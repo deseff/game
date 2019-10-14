@@ -7,14 +7,14 @@ public class Square extends Rectangle {
     private static final int INITIAL_SIZE = 100;
     private int col, row;
     private TicTacToeController ticTacToeController;
-    private boolean IsSquareUsed;
+    private boolean isSquareUsed;
 
     public Square(int col, int row, Paint fill, boolean IsSquareUsed, TicTacToeController ticTacToeController) {
         super(INITIAL_SIZE, INITIAL_SIZE, fill);
         this.col = col;
         this.row = row;
         this.ticTacToeController = ticTacToeController;
-        this.IsSquareUsed = false;
+        this.isSquareUsed = false;
 
         this.setOnMouseClicked(event -> ticTacToeController.handleOnMouseClicked(this));
     }
@@ -28,7 +28,7 @@ public class Square extends Rectangle {
     }
 
     public boolean getIsSquareUsed() {
-        return IsSquareUsed;
+        return isSquareUsed;
     }
 }
 
