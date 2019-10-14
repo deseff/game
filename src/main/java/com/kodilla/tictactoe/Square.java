@@ -9,7 +9,7 @@ public class Square extends Rectangle {
     private TicTacToeController ticTacToeController;
     private boolean isSquareUsed;
 
-    public Square(int col, int row, Paint fill, boolean IsSquareUsed, TicTacToeController ticTacToeController) {
+    public Square(int col, int row, Paint fill, TicTacToeController ticTacToeController) {
         super(INITIAL_SIZE, INITIAL_SIZE, fill);
         this.col = col;
         this.row = row;
@@ -23,12 +23,28 @@ public class Square extends Rectangle {
         return col;
     }
 
+    public void setCol(int col) {
+        this.col = col;
+    }
+
     public int getRow() {
         return row;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
     public boolean getIsSquareUsed() {
         return isSquareUsed;
+    }
+
+    public void setTicTacToeController(TicTacToeController ticTacToeController) {
+        this.ticTacToeController = ticTacToeController;
+    }
+
+    public void setSquareUsed(boolean squareUsed) {
+        isSquareUsed = squareUsed;
     }
 }
 
