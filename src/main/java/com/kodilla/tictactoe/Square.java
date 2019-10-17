@@ -8,13 +8,15 @@ public class Square extends Rectangle {
     private int col, row;
     private TicTacToeController ticTacToeController;
     private boolean isSquareUsed;
+    private String shape;
 
-    public Square(int col, int row, Paint fill, boolean IsSquareUsed, TicTacToeController ticTacToeController) {
+    public Square(int col, int row, Paint fill, TicTacToeController ticTacToeController, String shape) {
         super(INITIAL_SIZE, INITIAL_SIZE, fill);
         this.col = col;
         this.row = row;
         this.ticTacToeController = ticTacToeController;
         this.isSquareUsed = false;
+        this.shape = shape;
 
         this.setOnMouseClicked(event -> ticTacToeController.handleOnMouseClicked(this));
     }
@@ -27,8 +29,24 @@ public class Square extends Rectangle {
         return row;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
     public boolean getIsSquareUsed() {
         return isSquareUsed;
+    }
+
+    public void setSquareUsed(boolean squareUsed) {
+        isSquareUsed = squareUsed;
+    }
+
+    public String getShape() {
+        return shape;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
     }
 }
 
