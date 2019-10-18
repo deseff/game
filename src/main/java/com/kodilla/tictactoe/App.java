@@ -6,16 +6,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class App extends Application { //implements EventHandler<ActionEvent>
+public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -23,15 +23,18 @@ public class App extends Application { //implements EventHandler<ActionEvent>
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        display("New Game");
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.setPadding(new Insets(50, 50, 50, 50));
         grid.setHgap(1);
         grid.setVgap(1);
         grid.setGridLinesVisible(true);
 
-        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
-        popupLabel.setStyle(" -fx-font-size: 26; -fx-text-alignment: center; -fx-wrap-text: true");
+//        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
+//        popupLabel.setStyle(" -fx-font-size: 28; -fx-text-alignment: center; -fx-wrap-text: true");
 //        Popup popup = new Popup();
 //        popup.getContent().add(popupLabel);
 //        popupLabel.setMinWidth(80);
@@ -57,19 +60,74 @@ public class App extends Application { //implements EventHandler<ActionEvent>
         primaryStage.setWidth(500);
 
         BorderPane border = new BorderPane();
-        border.setLeft(addVBox());
         border.setCenter(grid);
-        border.setCenter(popupLabel);
 
-        Scene scene = new Scene(border, 500, 500);
+        Scene scene = new Scene(border, 800, 500);
 
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
-    public VBox addVBox() {
+    public static void display(String title) {
+        Stage window = new Stage();
+        window.setOnCloseRequest(e -> {
+            e.consume();
+        });
+
+        Image cross = new Image("files/cross1.png", 100, 100, false, false);
+        Image nought = new Image("files/nought1.png", 100, 100, false, false);
+
+        TicTacToeController controller1 = new TicTacToeController();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMinWidth(500);
+        window.setMinHeight(500);
+
+        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
+        popupLabel.setStyle(" -fx-font-size: 28; -fx-text-alignment: center; -fx-wrap-text: true");
+
+        HBox hBox1 = new HBox(10);
+        hBox1.setAlignment(Pos.CENTER);
+        hBox1.getChildren().add(popupLabel);
+
+        Button chooseOButton = new Button();
+        chooseOButton.setText("Choose O");
+        chooseOButton.setAlignment(Pos.CENTER);
+        HBox.setMargin(chooseOButton, new Insets(5));
+        chooseOButton.setOnAction(e -> {
+            controller1.setUserShape(nought);
+            controller1.setComputerShape(cross);
+            window.close();
+        });
+
+        Button chooseXButton = new Button();
+        chooseXButton.setText("Choose X");
+        chooseXButton.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setMargin(chooseXButton, new Insets(5));
+        chooseXButton.setOnAction(e -> {
+            controller1.setUserShape(cross);
+            controller1.setComputerShape(nought);
+            window.close();
+        });
+
+        HBox hBox2 = new HBox(20);
+        hBox2.setAlignment(Pos.BOTTOM_CENTER);
+        hBox2.getChildren().addAll(chooseOButton, chooseXButton);
+
+        VBox layout = new VBox(100);
+        layout.setPadding(new Insets(0, 0, 50, 0));
+        layout.getChildren().addAll(hBox1, hBox2);
+        layout.setAlignment(Pos.BOTTOM_CENTER);
+
+        Scene scene = new Scene(layout);
+        window.resizableProperty().setValue(false);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+    /*public VBox addVBox() {
 
         TicTacToeController controllerVB = new TicTacToeController();
 
@@ -81,13 +139,18 @@ public class App extends Application { //implements EventHandler<ActionEvent>
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         vbox.getChildren().add(title);
 
+        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
+        popupLabel.setStyle(" -fx-font-size: 26; -fx-text-alignment: center; -fx-wrap-text: true");
+        vbox.getChildren().add(popupLabel);
+
         Button chooseOButton = new Button();
         chooseOButton.setText("Choose O");
 //        chooseOButton.setAlignment(Pos.CENTER);
         VBox.setMargin(chooseOButton, new Insets(5));
         chooseOButton.setOnAction(e -> {
             System.out.println("tu będzie tekst dla użytkownika: You have chosen nought");
-//            vbox.border.popupLabel.setVisible(false);
+//            buttonAction();
+            vbox.getChildren().remove(popupLabel);
 //            controllerVB.setUserShape(controllerVB.nought);
         });
         vbox.getChildren().add(chooseOButton);
@@ -103,5 +166,6 @@ public class App extends Application { //implements EventHandler<ActionEvent>
         vbox.getChildren().add(chooseXButton);
 
         return vbox;
-    }
+    }*/
 }
+
