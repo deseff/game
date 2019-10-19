@@ -48,5 +48,26 @@ public class Square extends Rectangle {
     public void setShape(String shape) {
         this.shape = shape;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Square square = (Square) o;
+
+        if (isSquareUsed != square.isSquareUsed) return false;
+        return shape != null ? shape.equals(square.shape) : square.shape == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = col;
+        result = 31 * result + row;
+        result = 31 * result + ticTacToeController.hashCode();
+        result = 31 * result + (isSquareUsed ? 1 : 0);
+        result = 31 * result + (shape != null ? shape.hashCode() : 0);
+        return result;
+    }
 }
 
