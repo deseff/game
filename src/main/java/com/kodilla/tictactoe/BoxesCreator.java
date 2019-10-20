@@ -9,10 +9,13 @@ import javafx.scene.layout.VBox;
 
 public class BoxesCreator {
     private TicTacToeController ticTacToeController;
+//    private App app;
 //    private Image cross = new Image("files/cross1.png", 100, 100, false, false);
 //    private Image nought = new Image("files/nought1.png", 100, 100, false, false);
 
     TicTacToeController controller = new TicTacToeController();
+
+//    App appToDis = new App();
 
     public void createHBox1() {
         Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
@@ -31,7 +34,11 @@ public class BoxesCreator {
         chooseOButton.setOnAction(e -> {
             controller.setUserShape(controller.getNought());
             controller.setComputerShape(controller.getCross());
-//            window.close();
+
+
+//            App.display("New Game", controller);
+//            App.display("New Game", controller).getWindow.close();
+//                    window.close();
         });
 
         Button chooseXButton = new Button();
