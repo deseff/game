@@ -6,7 +6,7 @@ import javafx.scene.paint.ImagePattern;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Random;
 
 public class TicTacToeController {
     private Map<String, Square> squares = new HashMap<>();
@@ -17,6 +17,14 @@ public class TicTacToeController {
 
     private boolean hasUserWon;
     private boolean hasComputerWon;
+
+    public Image getCross() {
+        return cross;
+    }
+
+    public Image getNought() {
+        return nought;
+    }
 
     public void setUserShape(Image userShape) {
         this.userShape = userShape;
@@ -58,7 +66,7 @@ public class TicTacToeController {
                 if (squares.get(c + "-0").equals(square) && squares.get(c + "-1").equals(square) && squares.get(c + "-2").equals(square)) {
                     setHasUserWon(true);
                     System.out.println("You won!");
-                    Label win = new Label("You win");
+                    Label win = new Label("You won");
 //                coś żeby gra się zatrzymywała, komunikat, że gracz wygrał
                 }
             }
@@ -83,14 +91,20 @@ public class TicTacToeController {
 
         //COMPUTER MOVE
 
-        Optional<Square> firstFreeSquareOpt = squares.values().stream()
+        /*Optional<Square> firstFreeSquareOpt = squares.values().stream()
                 .filter(s -> !s.getIsSquareUsed())
                 .findFirst();
 
         if (!firstFreeSquareOpt.isPresent()) {
             System.out.println("DRAW");
         }
-        Square computerChoice = firstFreeSquareOpt.get();
+        Square computerChoice = firstFreeSquareOpt.get();*/
+
+        do {
+            Random random = new Random();
+            col = random.nextInt(3);
+            row = random.nextInt(3);
+            Square computerChoice = new Square(col, row, new ImagePattern(this.computerShape), this, computerShape.toString());
 
         if(!hasComputerWon && !hasUserWon) {
 //            if (!square.getIsSquareUsed()) {
@@ -125,6 +139,8 @@ public class TicTacToeController {
 //                coś żeby gra się zatrzymywała, komunikat, że komputer wygrał
             }
         }
+
+        } while (!square.getIsSquareUsed());
     }
 }
 

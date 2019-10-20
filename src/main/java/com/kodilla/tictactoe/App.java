@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -24,7 +23,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        display("New Game");
+        TicTacToeController controller = new TicTacToeController();
+        display("New Game", controller);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -43,7 +43,6 @@ public class App extends Application {
 //        popup.setAnchorY(100);
 //        popup.setAutoHide(true);
 
-        TicTacToeController controller = new TicTacToeController();
 
         for (int col = 0; col < 3; col++) {
 
@@ -69,24 +68,22 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public static void display(String title) {
+    public static void display(String title, TicTacToeController controller) {
         Stage window = new Stage();
         window.setOnCloseRequest(e -> {
             e.consume();
         });
 
-        Image cross = new Image("files/cross1.png", 100, 100, false, false);
-        Image nought = new Image("files/nought1.png", 100, 100, false, false);
-
-        TicTacToeController controller1 = new TicTacToeController();
+//        Image cross = new Image("files/cross1.png", 100, 100, false, false);
+//        Image nought = new Image("files/nought1.png", 100, 100, false, false);
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setMinWidth(500);
-        window.setMinHeight(500);
+        window.setWidth(500);
+        window.setHeight(500);
 
         Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
-        popupLabel.setStyle(" -fx-font-size: 28; -fx-text-alignment: center; -fx-wrap-text: true");
+        popupLabel.setStyle(" -fx-font-size: 36; -fx-text-alignment: center; -fx-wrap-text: true;");
 
         HBox hBox1 = new HBox(10);
         hBox1.setAlignment(Pos.CENTER);
@@ -97,8 +94,8 @@ public class App extends Application {
         chooseOButton.setAlignment(Pos.CENTER);
         HBox.setMargin(chooseOButton, new Insets(5));
         chooseOButton.setOnAction(e -> {
-            controller1.setUserShape(nought);
-            controller1.setComputerShape(cross);
+            controller.setUserShape(controller.getNought());
+            controller.setComputerShape(controller.getCross());
             window.close();
         });
 
@@ -107,8 +104,8 @@ public class App extends Application {
         chooseXButton.setAlignment(Pos.CENTER_RIGHT);
         HBox.setMargin(chooseXButton, new Insets(5));
         chooseXButton.setOnAction(e -> {
-            controller1.setUserShape(cross);
-            controller1.setComputerShape(nought);
+            controller.setUserShape(controller.getCross());
+            controller.setComputerShape(controller.getNought());
             window.close();
         });
 
