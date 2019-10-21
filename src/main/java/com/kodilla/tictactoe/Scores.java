@@ -19,6 +19,7 @@ public class Scores {
     public int getComputerSavedScore() {
         return computerSavedScore;
     }
+
     TicTacToeController controller = new TicTacToeController();
 
     public void writeFile() {
@@ -45,5 +46,4 @@ public class Scores {
             e.printStackTrace();
         }
     }
-
 }
