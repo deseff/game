@@ -29,20 +29,12 @@ public class Square extends Rectangle {
         return row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     public boolean getIsSquareUsed() {
         return isSquareUsed;
     }
 
     public void setSquareUsed(boolean squareUsed) {
         isSquareUsed = squareUsed;
-    }
-
-    public String getShape() {
-        return shape;
     }
 
     public void setShape(String shape) {

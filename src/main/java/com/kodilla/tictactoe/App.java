@@ -5,13 +5,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -24,10 +20,11 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         TicTacToeController controller = new TicTacToeController();
+        BoxesCreator boxesCreator = new BoxesCreator();
 //        new BoxesCreator().createHBox1();
-//        new BoxesCreator().createHBox2(controller);
+        new BoxesCreator().createHBox2(controller);
 //        new BoxesCreator().createVBox();
-        display("New Game", controller);
+        display("New Game", controller, boxesCreator);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -84,7 +81,14 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public static void display(String title, TicTacToeController controller) {
+    public static void display(String title, TicTacToeController controller, BoxesCreator boxesCreator) {
+        boxesCreator.createHBox1();
+        boxesCreator.createHBox2(controller);
+        boxesCreator.createVBox(boxesCreator.createHBox2(controller));
+    }
+
+
+    /*public static void display(String title, TicTacToeController controller) {
         Stage window = new Stage();
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -134,7 +138,7 @@ public class App extends Application {
         Scene scene = new Scene(layout);
         window.resizableProperty().setValue(false);
         window.setScene(scene);
-        window.showAndWait();
+        window.showAndWait();*/
 
         /*chooseOButton.setOnAction(e -> {
             window.close();
@@ -145,5 +149,5 @@ public class App extends Application {
         });*/
 
     }
-}
+
 

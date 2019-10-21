@@ -11,8 +11,8 @@ public class TicTacToeController {
     private Map<String, Square> squares = new HashMap<>();
     private Image cross = new Image("files/cross1.png", 100, 100, false, false);
     private Image nought = new Image("files/nought1.png", 100, 100, false, false);
-    public Image userShape;
-    public Image computerShape;
+    private Image userShape;
+    private Image computerShape;
 
     private boolean hasPlayerWon;
     private boolean hasComputerWon;
@@ -22,6 +22,9 @@ public class TicTacToeController {
     private int computerScore;
     private int playerScore;
     private String scoresToWrite;
+
+    private Square playersSquare;
+    private Square computersSquare;
 
     public Image getCross() {
         return cross;
@@ -51,16 +54,44 @@ public class TicTacToeController {
         this.hasComputerWon = hasComputerWon;
     }
 
-//    public int getComputerScore() {
-//        return computerScore;
-//    }
-//
-//    public int getPlayerScore() {
-//        return playerScore;
-//    }
+    public boolean isHasPlayerWon() {
+        return hasPlayerWon;
+    }
+
+    public boolean isHasComputerWon() {
+        return hasComputerWon;
+    }
+
+    public boolean isComputerMoved() {
+        return computerMoved;
+    }
+
+    public boolean isPlayerMoved() {
+        return playerMoved;
+    }
 
     public String getScoresToWrite() {
         return scoresToWrite;
+    }
+
+    public Square getPlayersSquare() {
+        return playersSquare;
+    }
+
+    public Square getComputersSquare() {
+        return computersSquare;
+    }
+
+    public int getComputerScore() {
+        return computerScore;
+    }
+
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    public Map<String, Square> getSquares() {
+        return squares;
     }
 
     Scores scores = new Scores();
@@ -76,6 +107,8 @@ public class TicTacToeController {
         scores.readFile();
         playerScore = scores.getPlayerSavedScore();
         computerScore = scores.getComputerSavedScore();
+
+        playersSquare = square;
 
         //PLAYER MOVE
         playerMoved = false;
@@ -131,6 +164,7 @@ public class TicTacToeController {
                 col = random.nextInt(3);
                 row = random.nextInt(3);
                 Square computerChoice = squares.get(col + "-" + row);
+                computersSquare = computerChoice;
                 System.out.println("Computer choice " + col + "-" + row);
 
                 if (!computerChoice.getIsSquareUsed()) {
