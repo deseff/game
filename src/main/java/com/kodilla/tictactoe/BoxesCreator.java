@@ -11,12 +11,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BoxesCreator {
-    private TicTacToeController ticTacToeController;
 
-    TicTacToeController controller = new TicTacToeController();
     private HBox hBox1;
     private HBox hBox2;
-    private VBox layout;
 
     public void createHBox1() {
         Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
@@ -25,6 +22,70 @@ public class BoxesCreator {
         hBox1 = new HBox(10);
         hBox1.setAlignment(Pos.CENTER);
         hBox1.getChildren().add(popupLabel);
+    }
+
+    public static void showWonBox(String whoWon){
+        Stage window = new Stage();
+
+        Button chooseOButton = new Button();
+        chooseOButton.setText(whoWon);
+        chooseOButton.setAlignment(Pos.CENTER);
+        HBox.setMargin(chooseOButton, new Insets(5));
+        chooseOButton.setOnAction(e -> {
+            window.close();
+        });
+
+        HBox hBox2 = new HBox(20);
+        hBox2.setAlignment(Pos.BOTTOM_CENTER);
+        hBox2.getChildren().addAll(chooseOButton);
+
+        VBox layout = new VBox(100);
+        layout.setPadding(new Insets(0, 0, 50, 0));
+        layout.getChildren().addAll(hBox2);
+        layout.setAlignment(Pos.BOTTOM_CENTER);
+
+        Scene scene = new Scene(layout);
+        window.resizableProperty().setValue(false);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+    public static void createDisplayBox(TicTacToeController controller) {
+        Stage window = new Stage();
+
+        Button chooseOButton = new Button();
+        chooseOButton.setText("Choose O");
+        chooseOButton.setAlignment(Pos.CENTER);
+        HBox.setMargin(chooseOButton, new Insets(5));
+        chooseOButton.setOnAction(e -> {
+            controller.setUserShape(controller.getNought());
+            controller.setComputerShape(controller.getCross());
+            window.close();
+        });
+
+        Button chooseXButton = new Button();
+        chooseXButton.setText("Choose X");
+        chooseXButton.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setMargin(chooseXButton, new Insets(5));
+        chooseXButton.setOnAction(e -> {
+            controller.setUserShape(controller.getCross());
+            controller.setComputerShape(controller.getNought());
+            window.close();
+        });
+
+        HBox hBox2 = new HBox(20);
+        hBox2.setAlignment(Pos.BOTTOM_CENTER);
+        hBox2.getChildren().addAll(chooseOButton, chooseXButton);
+
+        VBox layout = new VBox(100);
+        layout.setPadding(new Insets(0, 0, 50, 0));
+        layout.getChildren().addAll(hBox2);
+        layout.setAlignment(Pos.BOTTOM_CENTER);
+
+        Scene scene = new Scene(layout);
+        window.resizableProperty().setValue(false);
+        window.setScene(scene);
+        window.showAndWait();
     }
 
     public Stage createHBox2(TicTacToeController controller) {

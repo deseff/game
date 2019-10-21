@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -17,14 +18,11 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         TicTacToeController controller = new TicTacToeController();
-        BoxesCreator boxesCreator = new BoxesCreator();
-//        new BoxesCreator().createHBox1();
-        new BoxesCreator().createHBox2(controller);
-//        new BoxesCreator().createVBox();
-        display("New Game", controller, boxesCreator);
+        BoxesCreator.createDisplayBox(controller);
+//        display("New Game", controller, boxesCreator);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -71,8 +69,9 @@ public class App extends Application {
         });
 
         BorderPane border = new BorderPane();
-        border.setTop(grid);
+        border.setCenter(grid);
         border.setBottom(newGameButton);
+        border.setTop(new Text(controller.getScores().toString()));
 
         Scene scene = new Scene(border, 800, 500);
 
