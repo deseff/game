@@ -43,6 +43,8 @@ public class BoxesCreator {
             e.consume();
         });
 
+        App.display();
+
         Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
         popupLabel.setStyle(" -fx-font-size: 36; -fx-text-alignment: center; -fx-wrap-text: true;");
 

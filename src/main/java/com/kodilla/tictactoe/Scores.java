@@ -13,7 +13,6 @@ public class Scores {
 
     public Scores(TicTacToeController ticTacToeController) {
         this.ticTacToeController = ticTacToeController;
-
         readScore();
     }
 

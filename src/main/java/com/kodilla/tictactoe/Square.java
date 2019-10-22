@@ -7,6 +7,7 @@ public class Square extends Rectangle {
     private static final int INITIAL_SIZE = 100;
     private int col, row;
     private TicTacToeController ticTacToeController;
+
     private boolean isSquareUsed;
     private String shape;
 
