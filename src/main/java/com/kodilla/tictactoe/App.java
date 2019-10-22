@@ -1,17 +1,15 @@
 package com.kodilla.tictactoe;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class App extends Application {
 
@@ -58,31 +56,15 @@ public class App extends Application {
 
         BorderPane border = new BorderPane();
 
-        Label scoreLabel = new Label();
-        scoreLabel.setText(controller.getScores().toString());
-
-        border.setTop(scoreLabel);
-//        border.setTop(new Text(controller.getScores().toString()));
+        border.setTop(new Text(controller.getScores().toString()));
         border.setCenter(grid);
         border.setBottom(newGameButton);
-
-        resetScore(scoreLabel, controller);
 
         Scene scene = new Scene(border, 500, 500);
 
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public void resetScore(Label scoreLabel, TicTacToeController controller) {
-
-        PauseTransition pause = new PauseTransition(Duration.millis(2000));
-        pause.setOnFinished(e -> {
-            scoreLabel.setText(controller.getScores().toString());
-        });
-        pause.play();
-
     }
 
     public static void display() {

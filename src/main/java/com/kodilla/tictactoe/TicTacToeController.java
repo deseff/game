@@ -22,9 +22,6 @@ public class TicTacToeController {
     private int computerScore;
     private int playerScore;
 
-    private Square playersSquare;
-    private Square computersSquare;
-
     private Scores scores = new Scores(this);
 
     public void handleOnMouseClicked(Square square) {
@@ -38,8 +35,6 @@ public class TicTacToeController {
         playerScore = scores.getPlayerSavedScore();
         computerScore = scores.getComputerSavedScore();
 
-        playersSquare = square;
-
         //PLAYER MOVE
         playerMoved = false;
         if (!hasPlayerWon && !hasComputerWon) {
@@ -49,6 +44,7 @@ public class TicTacToeController {
                 square.setShape(this.userShape.toString());
                 playerMoved = true;
             }
+
             //CHECK IF PLAYER WON
             for (int c = 0; c < 3; c++) {
                 if (squares.get(c + "-0").equals(square) && squares.get(c + "-1").equals(square) && squares.get(c + "-2").equals(square)) {
@@ -73,7 +69,6 @@ public class TicTacToeController {
         }
 
         //COMPUTER MOVE
-
         long freeSquares = squares.values().stream()
                 .filter(s -> !s.getIsSquareUsed())
                 .count();
@@ -84,7 +79,6 @@ public class TicTacToeController {
                 col = random.nextInt(3);
                 row = random.nextInt(3);
                 Square computerChoice = squares.get(col + "-" + row);
-                computersSquare = computerChoice;
                 System.out.println("Computer choice " + col + "-" + row);
 
                 if (!computerChoice.getIsSquareUsed()) {
