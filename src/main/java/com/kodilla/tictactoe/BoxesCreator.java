@@ -7,36 +7,48 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BoxesCreator {
-    private TicTacToeController ticTacToeController;
 
-    TicTacToeController controller = new TicTacToeController();
-    private HBox hBox1;
-    private HBox hBox2;
-    private VBox layout;
+    public static void showEndBox(String whoWon) {
+        Stage endWindow = new Stage();
+        endWindow.setOnCloseRequest(e -> {
+            e.consume();
+        });
 
-    public void createHBox1() {
-        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
-        popupLabel.setStyle(" -fx-font-size: 36; -fx-text-alignment: center; -fx-wrap-text: true;");
+        Button whoWonButton = new Button();
+        whoWonButton.setText(whoWon);
+        whoWonButton.setAlignment(Pos.CENTER);
+        HBox.setMargin(whoWonButton, new Insets(5));
+        whoWonButton.setOnAction(e -> {
+            endWindow.close();
+        });
 
-        hBox1 = new HBox(10);
-        hBox1.setAlignment(Pos.CENTER);
-        hBox1.getChildren().add(popupLabel);
+        HBox hBox3 = new HBox(20);
+        hBox3.setAlignment(Pos.BOTTOM_CENTER);
+        hBox3.getChildren().addAll(whoWonButton);
+
+        Scene scene = new Scene(hBox3);
+        endWindow.resizableProperty().setValue(false);
+        endWindow.setScene(scene);
+        endWindow.showAndWait();
     }
 
-    public Stage createHBox2(TicTacToeController controller) {
+    public static void createDisplayBox(TicTacToeController controller) {
         Stage window = new Stage();
+        window.setHeight(500);
+        window.setWidth(500);
         window.setOnCloseRequest(e -> {
             e.consume();
         });
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("New Game");
-        window.setWidth(500);
-        window.setHeight(500);
+        Label popupLabel = new Label("Choose what do you wish to play with.\nNought or cross?");
+        popupLabel.setStyle(" -fx-font-size: 36; -fx-text-alignment: center; -fx-wrap-text: true;");
+
+        HBox hBox1 = new HBox(10);
+        hBox1.setAlignment(Pos.CENTER);
+        hBox1.getChildren().add(popupLabel);
 
         Button chooseOButton = new Button();
         chooseOButton.setText("Choose O");
@@ -58,25 +70,19 @@ public class BoxesCreator {
             window.close();
         });
 
-        hBox2 = new HBox(20);
+        HBox hBox2 = new HBox(20);
         hBox2.setAlignment(Pos.BOTTOM_CENTER);
         hBox2.getChildren().addAll(chooseOButton, chooseXButton);
 
-        return window;
-    }
-
-    public void createVBox(Stage window) {
         VBox layout = new VBox(100);
         layout.setPadding(new Insets(0, 0, 50, 0));
         layout.getChildren().addAll(hBox1, hBox2);
         layout.setAlignment(Pos.BOTTOM_CENTER);
 
         Scene scene = new Scene(layout);
-
         window.resizableProperty().setValue(false);
         window.setScene(scene);
         window.showAndWait();
-
     }
 }
 
